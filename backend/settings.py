@@ -42,7 +42,18 @@ INSTALLED_APPS = [
     #3rd party apps 
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
 ]
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+      'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+      }
+   }
+}
 
 # Simple JWT
 REST_FRAMEWORK = {
