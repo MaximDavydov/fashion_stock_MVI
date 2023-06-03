@@ -20,7 +20,7 @@ from base.serializers import ProductSerializer, OrderSerializer
 # views start from here
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def addOrderItems(request):
     user = request.user
     data = request.data
@@ -74,7 +74,7 @@ def addOrderItems(request):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getMyOrders(request):
     user = request.user
     orders = user.order_set.all()
@@ -83,7 +83,7 @@ def getMyOrders(request):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def getOrders(request):
     orders = Order.objects.all()
     serializer = OrderSerializer(orders, many=True)
@@ -91,7 +91,7 @@ def getOrders(request):
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     user = request.user
 
@@ -109,7 +109,7 @@ def getOrderById(request, pk):
 
 
 @api_view(['PUT'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def updateOrderToPaid(request, pk):
     order = Order.objects.get(_id=pk)
     order.isPaid = True
@@ -119,7 +119,7 @@ def updateOrderToPaid(request, pk):
 
 
 @api_view(['PUT'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def updateOrderToDelivered(request, pk):
     order = Order.objects.get(_id=pk)
     order.isDeliver = True

@@ -67,7 +67,7 @@ def getProduct(request, pk):
 
 # Create a new Product
 @api_view(['POST'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def createProduct(request):
     user = request.user
     product = Product.objects.create(
@@ -88,7 +88,7 @@ def createProduct(request):
 
 
 @api_view(['PUT'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def updateProduct(request, pk):
     data = request.data
     product = Product.objects.get(_id=pk)
@@ -108,7 +108,7 @@ def updateProduct(request, pk):
 
 # Delete a product
 @api_view(['DELETE'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def deleteProduct(request, pk):
     product = Product.objects.get(_id=pk)
     product.delete()
@@ -127,7 +127,7 @@ def uploadImage(request):
 
 
 @api_view(['POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def createProductReview(request, pk):
     user = request.user
     product = Product.objects.get(_id=pk)
