@@ -36,3 +36,5 @@ A completely customized eCommerce / shopping cart application using Django, REAC
 
 # Запрос на повышение цены
 http://127.0.0.1:8000/api/products/addprice/<product_id>/
+
+path('<str:pk>/pay/', views.updateOrderToPaid, name="pay"),

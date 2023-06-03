@@ -131,7 +131,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
     /* MAKING API CALL TO SAVE THE PAYMENT DETAILS */
     const { data } = await axios.put(
       `/api/orders/${id}/pay/`,
-      paymentResult,
+      paymentResult = true,
       config
     );
 
