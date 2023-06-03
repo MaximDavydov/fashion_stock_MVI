@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/MaximDavydov/fashion_stock_MVI/static/css/main.961e72f5.chunk.css",
-    "main.js": "/MaximDavydov/fashion_stock_MVI/static/js/main.36a70587.chunk.js",
-    "main.js.map": "/MaximDavydov/fashion_stock_MVI/static/js/main.36a70587.chunk.js.map",
-    "runtime-main.js": "/MaximDavydov/fashion_stock_MVI/static/js/runtime-main.d9561b41.js",
-    "runtime-main.js.map": "/MaximDavydov/fashion_stock_MVI/static/js/runtime-main.d9561b41.js.map",
-    "static/js/2.28319926.chunk.js": "/MaximDavydov/fashion_stock_MVI/static/js/2.28319926.chunk.js",
-    "static/js/2.28319926.chunk.js.map": "/MaximDavydov/fashion_stock_MVI/static/js/2.28319926.chunk.js.map",
-    "static/js/3.3989fcd6.chunk.js": "/MaximDavydov/fashion_stock_MVI/static/js/3.3989fcd6.chunk.js",
-    "static/js/3.3989fcd6.chunk.js.map": "/MaximDavydov/fashion_stock_MVI/static/js/3.3989fcd6.chunk.js.map",
-    "index.html": "/MaximDavydov/fashion_stock_MVI/index.html",
-    "static/css/main.961e72f5.chunk.css.map": "/MaximDavydov/fashion_stock_MVI/static/css/main.961e72f5.chunk.css.map",
-    "static/js/2.28319926.chunk.js.LICENSE.txt": "/MaximDavydov/fashion_stock_MVI/static/js/2.28319926.chunk.js.LICENSE.txt"
+    "main.css": "/fashion_stock_MVI/static/css/main.961e72f5.chunk.css",
+    "main.js": "/fashion_stock_MVI/static/js/main.36a70587.chunk.js",
+    "main.js.map": "/fashion_stock_MVI/static/js/main.36a70587.chunk.js.map",
+    "runtime-main.js": "/fashion_stock_MVI/static/js/runtime-main.1ce64377.js",
+    "runtime-main.js.map": "/fashion_stock_MVI/static/js/runtime-main.1ce64377.js.map",
+    "static/js/2.28319926.chunk.js": "/fashion_stock_MVI/static/js/2.28319926.chunk.js",
+    "static/js/2.28319926.chunk.js.map": "/fashion_stock_MVI/static/js/2.28319926.chunk.js.map",
+    "static/js/3.3989fcd6.chunk.js": "/fashion_stock_MVI/static/js/3.3989fcd6.chunk.js",
+    "static/js/3.3989fcd6.chunk.js.map": "/fashion_stock_MVI/static/js/3.3989fcd6.chunk.js.map",
+    "index.html": "/fashion_stock_MVI/index.html",
+    "static/css/main.961e72f5.chunk.css.map": "/fashion_stock_MVI/static/css/main.961e72f5.chunk.css.map",
+    "static/js/2.28319926.chunk.js.LICENSE.txt": "/fashion_stock_MVI/static/js/2.28319926.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.d9561b41.js",
+    "static/js/runtime-main.1ce64377.js",
     "static/js/2.28319926.chunk.js",
     "static/css/main.961e72f5.chunk.css",
     "static/js/main.36a70587.chunk.js"
