@@ -28,83 +28,135 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
+import ModalPayment from "../components/ModalPayment";
 
 function OrderScreen({ history, match }) {
+  // const orderId = match.params.id;
+  //
+  // const dispatch = useDispatch();
+  //
+  // const [sdkReady, setSdkReady] = useState(false);
+  //
+  // /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  // const orderDetails = useSelector((state) => state.orderDetails);
+  // const { order, error, loading } = orderDetails;
+  //
+  // const orderPay = useSelector((state) => state.orderPay);
+  // const { loading: loadingPay, success: successPay } = orderPay;
+  //
+  // const orderDeliver = useSelector((state) => state.orderDeliver);
+  // const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+  //
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
+  //
+  // // ITEMS PRICE GETS CALCULATED ONLY IF WE HAVE AN ORDER
+  // if (!loading && !error) {
+  //   order.itemsPrice = order.orderItems
+  //     .reduce((acc, item) => acc + item.price * item.qty, 0)
+  //     .toFixed(2);
+  // }
+  //
+  // // // PAYPAL BUTTONS
+  // // const addPayPalScript = () => {
+  // //   const script = document.createElement("script");
+  // //   script.type = "text/javascript";
+  // //   script.src =
+  // //     "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
+  // //   script.async = true;
+  // //   script.onload = () => {
+  // //     setSdkReady(true);
+  // //   };
+  // //   document.body.appendChild(script);
+  // // };
+  //
+  // useEffect(() => {
+  //   // IS USER IS NOT LOGGED IN THEN REDIRECT TO LOGIN PAGE
+  //   if (!userInfo) {
+  //     history.push("/login");
+  //   }
+  //
+  //   // CHECK IF WE HAVE THE ORDER DETAILS, IF NOT DISPATCH AN ACTION TO GET THE ORDER DETAILS
+  //   if (
+  //     !order ||
+  //     successPay ||
+  //     order._id !== Number(orderId) ||
+  //     successDeliver
+  //   ) {
+  //     dispatch({ type: ORDER_PAY_RESET });
+  //
+  //     dispatch({ type: ORDER_DELIVER_RESET });
+  //
+  //     dispatch(getOrderDetails(orderId));
+  //   } else if (!order.isPaid) {
+  //     // // ACTIVATING PAYPAL SCRIPTS
+  //     // if (!window.paypal) {
+  //     //   addPayPalScript();
+  //     // } else {
+  //     //   setSdkReady(true);
+  //     // }
+  //   }
+  // }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
+  //
+  // /* HANDLERS */
+  // const successPaymentHandler = (paymentResult) => {
+  //   dispatch(payOrder(orderId, true));
+  // };
+  //
+  // const deliverHandler = () => {
+  //   dispatch(deliverOrder(order));
+  // };
+
   const orderId = match.params.id;
-
   const dispatch = useDispatch();
-
-  const [sdkReady, setSdkReady] = useState(false);
-
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  const [showModal, setShowModal] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, error, loading } = orderDetails;
-
-  const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
-
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
-
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // ITEMS PRICE GETS CALCULATED ONLY IF WE HAVE AN ORDER
   if (!loading && !error) {
     order.itemsPrice = order.orderItems
-      .reduce((acc, item) => acc + item.price * item.qty, 0)
-      .toFixed(2);
+        .reduce((acc, item) => acc + item.price * item.qty, 0)
+        .toFixed(2);
   }
 
-  // // PAYPAL BUTTONS
-  // const addPayPalScript = () => {
-  //   const script = document.createElement("script");
-  //   script.type = "text/javascript";
-  //   script.src =
-  //     "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
-  //   script.async = true;
-  //   script.onload = () => {
-  //     setSdkReady(true);
-  //   };
-  //   document.body.appendChild(script);
-  // };
-
   useEffect(() => {
-    // IS USER IS NOT LOGGED IN THEN REDIRECT TO LOGIN PAGE
     if (!userInfo) {
       history.push("/login");
     }
 
-    // CHECK IF WE HAVE THE ORDER DETAILS, IF NOT DISPATCH AN ACTION TO GET THE ORDER DETAILS
     if (
-      !order ||
-      successPay ||
-      order._id !== Number(orderId) ||
-      successDeliver
+        !order ||
+        order._id !== Number(orderId) ||
+        successDeliver
     ) {
-      dispatch({ type: ORDER_PAY_RESET });
-
       dispatch({ type: ORDER_DELIVER_RESET });
-
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      // // ACTIVATING PAYPAL SCRIPTS
-      // if (!window.paypal) {
-      //   addPayPalScript();
-      // } else {
-      //   setSdkReady(true);
-      // }
     }
-  }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
+  }, [dispatch, order, orderId, successDeliver, history, userInfo]);
 
-  /* HANDLERS */
+  const handlePaymentModalOpen = () => {
+    setShowModal(true);
+  };
+
+  const handlePaymentModalClose = () => {
+    setShowModal(false);
+  };
+
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, true));
+    setShowModal(false);
+
+    window.location.reload(); // Обновление страницы
   };
 
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
   };
+
 
   return loading ? (
     <Loader />
@@ -243,7 +295,7 @@ function OrderScreen({ history, match }) {
 
               {!order.isPaid && (
                 <ListGroup.Item>
-                  <Button onClick={successPaymentHandler}>Оплатить</Button>
+                  <Button onClick={handlePaymentModalOpen}>Оплатить</Button>
                 </ListGroup.Item>
               )}
             </ListGroup>
@@ -264,6 +316,16 @@ function OrderScreen({ history, match }) {
           </Card>
         </Col>
       </Row>
+
+
+      <ModalPayment
+          show={showModal}
+          handleClose={handlePaymentModalClose}
+          successPaymentHandler={successPaymentHandler}
+          orderId={orderId}
+          order={order}
+          userInfo={userInfo}
+      />
     </div>
   );
 }

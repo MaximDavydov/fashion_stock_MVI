@@ -30,6 +30,7 @@ import {
 
 /* ACTION TYPES */
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants";
+import axios from "axios";
 
 
 
@@ -80,8 +81,21 @@ function ProductScreen({ match, history }) {
   };
 
 
+  // Функция отправки запроса по увеличению стоимости
+  const increasePrice = async () => {
+    try {
+      const product_id = match.params.id;
 
-  /* new */
+      // Отправка запроса на повышение стоимости продукта
+      await axios.put(`http://127.0.0.1:8000/api/products/addprice/${product_id}/`);
+
+      // Обновление страницы, тк лень заморачиваться с useEffect
+      window.location.reload();
+    } catch (error) {
+      console.error('Ошибка при повышении стоимости продукта:', error);
+    }
+  };
+
 
   return (
     <div>
@@ -169,11 +183,22 @@ function ProductScreen({ match, history }) {
                   <ListGroup.Item>
                     <Button
                         className="w-100"
-                        disabled={product.countInStock === 0 }
+                        disabled={product.countInStock <= 0 }
                         type="button"
                         onClick={addToCartHandler}
                     >
                       Добавить в корзину
+                    </Button>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Button
+                        className="w-100"
+                        disabled={product.countInStock <= 0 }
+                        type="button"
+                        onClick={increasePrice}
+                    >
+                      Поднять ставку (1500₽)
                     </Button>
                   </ListGroup.Item>
                 </ListGroup>
