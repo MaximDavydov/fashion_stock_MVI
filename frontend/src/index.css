@@ -45,11 +45,11 @@ h2 {
   display: block;
   height: 300px;
   padding: 30px;
-  margin: 40px;
   margin-top: 50px;
-  border-radius: 50%;
+  border-radius: 20%;
   margin-left: auto;
   margin-right: auto;
+  transform: scale(1.1);
 }
 
 .carousel a {
@@ -61,4 +61,25 @@ h2 {
     font-size: 2.5vw;
     color: white;
   }
+}
+
+/*CARD PRODUCT SHADOW*/
+
+.card-shadow-hover {
+  transition: all 0.4s ease-in-out;
+}
+
+.card-shadow-hover:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  scale: 1.05;
+}
+
+
+/* НА ГЛАВНОМ ЭКРАНЕ СОКРАЩАЕМ КОЛ-ВО СИМВОЛОВ В НАЗВАНИИ*/
+.product-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  max-height: 1.2em;
 }

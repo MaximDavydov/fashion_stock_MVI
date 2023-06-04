@@ -52,24 +52,24 @@ function Header() {
             >
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart"></i> Cart
+                  <i className="fas fa-shopping-cart"></i> Корзина
                 </Nav.Link>
               </LinkContainer>
 
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                    <NavDropdown.Item>Профиль</NavDropdown.Item>
                   </LinkContainer>
 
                   <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
+                    Выйти
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
                   <Nav.Link>
-                    <i className="fas fa-user"></i> Login
+                    <i className="fas fa-user"></i> Авторизация
                   </Nav.Link>
                 </LinkContainer>
               )}
@@ -77,15 +77,15 @@ function Header() {
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
                   <LinkContainer to="/admin/userlist">
-                    <NavDropdown.Item>Users</NavDropdown.Item>
+                    <NavDropdown.Item>Пользователи</NavDropdown.Item>
                   </LinkContainer>
 
                   <LinkContainer to="/admin/productlist">
-                    <NavDropdown.Item>Products</NavDropdown.Item>
+                    <NavDropdown.Item>Товары</NavDropdown.Item>
                   </LinkContainer>
 
                   <LinkContainer to="/admin/orderlist">
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                    <NavDropdown.Item>Заказы</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}

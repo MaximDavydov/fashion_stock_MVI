@@ -36,7 +36,7 @@ function PlaceOrderScreen({ history }) {
 
   cart.shippingPrice = (cart.itemsPrice > 100 ? 0 : 10).toFixed(2);
 
-  cart.taxPrice = Number(0.082 * cart.itemsPrice).toFixed(2);
+  cart.taxPrice = Number(0.1 * cart.itemsPrice).toFixed(2);
 
   cart.totalPrice = (
     Number(cart.itemsPrice) +
@@ -85,10 +85,10 @@ function PlaceOrderScreen({ history }) {
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Доставка</h2>
 
               <p>
-                <strong>Shipping Address: </strong>
+                <strong>Адресс доставки: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city},{" "}
                 {cart.shippingAddress.postalCode},{" "}
                 {cart.shippingAddress.country}
@@ -96,19 +96,19 @@ function PlaceOrderScreen({ history }) {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment</h2>
+              <h2>Оплата</h2>
 
               <p>
-                <strong>Payment Method: </strong>
+                <strong>Метод оплаты: </strong>
                 {cart.paymentMethod}
               </p>
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h2>Товары к заказу</h2>
 
               {cart.cartItems.length === 0 ? (
-                <Message variant="info">Your cart is empty</Message>
+                <Message variant="info">Ваша корзина пуста</Message>
               ) : (
                 <ListGroup variant="flush">
                   {cart.cartItems.map((item, index) => (
@@ -130,7 +130,7 @@ function PlaceOrderScreen({ history }) {
                         </Col>
 
                         <Col md={4}>
-                          {item.qty} X ₹{item.price} = ₹
+                          {item.qty} X ₽{item.price} = ₽
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -146,38 +146,38 @@ function PlaceOrderScreen({ history }) {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2>Информация о заказе</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Items:</Col>
+                  <Col>Товар:</Col>
 
-                  <Col>₹{cart.itemsPrice}</Col>
+                  <Col>₽{cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping:</Col>
+                  <Col>Доставка:</Col>
 
-                  <Col>₹{cart.shippingPrice}</Col>
+                  <Col>₽{cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax:</Col>
+                  <Col>НДС:</Col>
 
-                  <Col>₹{cart.taxPrice}</Col>
+                  <Col>₽{cart.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Total:</Col>
+                  <Col>Итого:</Col>
 
-                  <Col>₹{cart.totalPrice}</Col>
+                  <Col>₽{cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
@@ -192,7 +192,7 @@ function PlaceOrderScreen({ history }) {
                   disabled={cart.cartItems === 0}
                   onClick={placeorder}
                 >
-                  Place Order
+                  Оформить заказ
                 </Button>
               </ListGroup.Item>
             </ListGroup>

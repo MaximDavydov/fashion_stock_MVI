@@ -50,42 +50,42 @@ function LoginScreen({ location, history }) {
 
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1>Авторизация</h1>
 
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
 
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter Email"
+            placeholder="Введите email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Enter Password"
+            placeholder="Введите пароль"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
         </Form.Group>
 
         <Button type="submit" variant="primary" className="mt-3">
-          Sign In
+          Войти
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          New Customer ?{" "}
+          Впервые на fashionStock ?{" "}
           <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-            Register
+            Зарегистирируйтесь
           </Link>
         </Col>
       </Row>

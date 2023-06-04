@@ -100,7 +100,7 @@ function ProfileScreen({ history }) {
   return (
     <Row>
       <Col md={3}>
-        <h2>User Profile</h2>
+        <h2>Профиль пользователя</h2>
 
         {message && <Message variant="danger">{message}</Message>}
         {error && <Message variant="danger">{error}</Message>}
@@ -108,55 +108,55 @@ function ProfileScreen({ history }) {
 
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="name">
-            <Form.Label>Name</Form.Label>
+            <Form.Label>Имя</Form.Label>
             <Form.Control
               required
               type="name"
-              placeholder="Enter Name"
+              placeholder="Изменить имя"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>
 
           <Form.Group controlId="email">
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               required
               type="email"
-              placeholder="Enter Email"
+              placeholder="Изменить email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>
 
           <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Пароль</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Enter Password"
+              placeholder="Изменить пароль"
               value={password}
               onChange={(e) => setpassword(e.target.value)}
             />
           </Form.Group>
 
           <Form.Group controlId="passwordConfirm">
-            <Form.Label>Confirm Password</Form.Label>
+            <Form.Label>Подтверждение пароля</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Confirm Password"
+              placeholder="Подтвердите пароль"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Form.Group>
 
           <Button type="submit" variant="primary" className="mt-3">
-            Update
+            Обновить данные
           </Button>
         </Form>
       </Col>
 
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2>Список заказов</h2>
 
         {loadingOrders ? (
           <Loader />
@@ -167,10 +167,10 @@ function ProfileScreen({ history }) {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Date</th>
-                <th>Total</th>
-                <th>Paid</th>
-                <th>Delivered</th>
+                <th>Дата</th>
+                <th>Итого</th>
+                <th>Оплата</th>
+                <th>Доставка</th>
               </tr>
             </thead>
 
@@ -181,7 +181,7 @@ function ProfileScreen({ history }) {
                   <td>
                     {order.createdAt ? order.createdAt.substring(0, 10) : null}
                   </td>
-                  <td>${order.totalPrice}</td>
+                  <td>{order.totalPrice}₽</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt ? (
@@ -193,7 +193,7 @@ function ProfileScreen({ history }) {
                   </td>
                   <td>
                     <LinkContainer to={`/order/${order._id}`}>
-                      <Button className="btn-sm">Details</Button>
+                      <Button className="btn-sm">Информация</Button>
                     </LinkContainer>
                   </td>
                 </tr>

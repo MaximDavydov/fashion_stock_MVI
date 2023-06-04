@@ -9,6 +9,7 @@ import {
   CART_SAVE_PAYMENT_METHOD,
 } from "../constants/cartConstants";
 
+
 /* ACTION CREATOR USED IN CartScreen COMPONENT */
 
 /* FOR ADDING PRODUCTS TO CART */
@@ -64,3 +65,5 @@ export const savePaymentMethod = (data) => (dispatch) => {
   // SETTING VALUE OF PAYMENT METHOD IN LOCAL STORAGE
   localStorage.setItem("paymentMethod", JSON.stringify(data));
 };
+
+

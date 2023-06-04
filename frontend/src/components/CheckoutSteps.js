@@ -12,40 +12,40 @@ function CheckoutSteps({ step1, step2, step3, step4 }) {
       <Nav.Item>
         {step1 ? (
           <LinkContainer to="/login">
-            <Nav.Link>Login</Nav.Link>
+            <Nav.Link>Авторизация</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link disabled>Login</Nav.Link>
+          <Nav.Link disabled>Авторизация</Nav.Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step2 ? (
           <LinkContainer to="/shipping">
-            <Nav.Link>Shipping</Nav.Link>
+            <Nav.Link>Доставка</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link disabled>Shipping</Nav.Link>
+          <Nav.Link disabled>Доставка</Nav.Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step3 ? (
           <LinkContainer to="/payment">
-            <Nav.Link>Payment</Nav.Link>
+            <Nav.Link>Оплата</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link disabled>Payment</Nav.Link>
+          <Nav.Link disabled>Оплата</Nav.Link>
         )}
       </Nav.Item>
 
       <Nav.Item>
         {step4 ? (
           <LinkContainer to="/placeorder">
-            <Nav.Link>Place Order</Nav.Link>
+            <Nav.Link>Заказ оформлен</Nav.Link>
           </LinkContainer>
         ) : (
-          <Nav.Link disabled>Place Order</Nav.Link>
+          <Nav.Link disabled>Заказ оформлен</Nav.Link>
         )}
       </Nav.Item>
     </Nav>

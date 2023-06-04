@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card, Button } from "react-bootstrap";
 
 /* PAYPAL BUTTONS */
-import { PayPalButton } from "react-paypal-button-v2";
+// import { PayPalButton } from "react-paypal-button-v2";
 
 /* COMPONENTS */
 import Message from "../components/Message";
@@ -56,18 +56,18 @@ function OrderScreen({ history, match }) {
       .toFixed(2);
   }
 
-  // PAYPAL BUTTONS
-  const addPayPalScript = () => {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src =
-      "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
-    script.async = true;
-    script.onload = () => {
-      setSdkReady(true);
-    };
-    document.body.appendChild(script);
-  };
+  // // PAYPAL BUTTONS
+  // const addPayPalScript = () => {
+  //   const script = document.createElement("script");
+  //   script.type = "text/javascript";
+  //   script.src =
+  //     "https://www.paypal.com/sdk/js?client-id=AYgflmsaM7ccNLPlKUiufIyw8-spOE4UuS5XyyTCvhzheA-1EUcZF9qGlgXBZaSKcP5BY0zTc9WgINKe";
+  //   script.async = true;
+  //   script.onload = () => {
+  //     setSdkReady(true);
+  //   };
+  //   document.body.appendChild(script);
+  // };
 
   useEffect(() => {
     // IS USER IS NOT LOGGED IN THEN REDIRECT TO LOGIN PAGE
@@ -88,12 +88,12 @@ function OrderScreen({ history, match }) {
 
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
-      // ACTIVATING PAYPAL SCRIPTS
-      if (!window.paypal) {
-        addPayPalScript();
-      } else {
-        setSdkReady(true);
-      }
+      // // ACTIVATING PAYPAL SCRIPTS
+      // if (!window.paypal) {
+      //   addPayPalScript();
+      // } else {
+      //   setSdkReady(true);
+      // }
     }
   }, [dispatch, order, orderId, successPay, successDeliver, history, userInfo]);
 
@@ -112,15 +112,15 @@ function OrderScreen({ history, match }) {
     <Message variant="danger">{error}</Message>
   ) : (
     <div>
-      <h1>Order: {order._id}</h1>
+      <h1>Заказ: {order._id}</h1>
       <Row>
         <Col md={8}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h2>Доставка</h2>
 
               <p>
-                <strong>Name: {order.User.name}</strong>
+                <strong>Имя: {order.User.name}</strong>
               </p>
 
               <p>
@@ -129,7 +129,7 @@ function OrderScreen({ history, match }) {
               </p>
 
               <p>
-                <strong>Shipping Address: </strong>
+                <strong>Адрес доставки: </strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city},{" "}
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country}
@@ -143,32 +143,32 @@ function OrderScreen({ history, match }) {
                     : null}
                 </Message>
               ) : (
-                <Message variant="warning">Not Delivered</Message>
+                <Message variant="warning">Еще не доставлен</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment</h2>
+              <h2>Оплата</h2>
 
               <p>
-                <strong>Payment Method: </strong>
+                <strong>Метод оплаты: </strong>
                 {order.paymentMethod}
               </p>
 
               {order.isPaid ? (
                 <Message variant="success">
-                  Paid on {order.paidAt ? order.paidAt.substring(0, 10) : null}
+                  Заказ оплачен: {order.paidAt ? order.paidAt.substring(0, 10) : null}
                 </Message>
               ) : (
-                <Message variant="warning">Not Paid</Message>
+                <Message variant="warning">Оплатите заказ</Message>
               )}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h2>Товары к заказу</h2>
 
               {order.orderItems.length === 0 ? (
-                <Message variant="info">Order is empty</Message>
+                <Message variant="info">Заказ пуст</Message>
               ) : (
                 <ListGroup variant="flush">
                   {order.orderItems.map((item, index) => (
@@ -190,7 +190,7 @@ function OrderScreen({ history, match }) {
                         </Col>
 
                         <Col md={4}>
-                          {item.qty} X ₹{item.price} = ₹
+                          {item.qty} X ₽{item.price} = ₽
                           {(item.qty * item.price).toFixed(2)}
                         </Col>
                       </Row>
@@ -206,53 +206,44 @@ function OrderScreen({ history, match }) {
           <Card>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2>Информация о заказе</h2>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Items:</Col>
+                  <Col>Товары:</Col>
 
-                  <Col>₹{order.itemsPrice}</Col>
+                  <Col>₽{order.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Shipping:</Col>
+                  <Col>Доставка:</Col>
 
-                  <Col>₹{order.shippingPrice}</Col>
+                  <Col>₽{order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Tax:</Col>
+                  <Col>НДС:</Col>
 
-                  <Col>₹{order.taxPrice}</Col>
+                  <Col>₽{order.taxPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               <ListGroup.Item>
                 <Row>
-                  <Col>Total:</Col>
+                  <Col>Итого:</Col>
 
-                  <Col>₹{order.totalPrice}</Col>
+                  <Col>₽{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
 
               {!order.isPaid && (
                 <ListGroup.Item>
-                  {loadingPay && <Loader />}
-                  {!sdkReady ? (
-                    <Loader />
-                  ) : (
-                    // <PayPalButton
-                    //   amount={order.totalPrice}
-                    //   onSuccess={successPaymentHandler}
-                    // />
-                      <button onClick={successPaymentHandler}>Pay via PayPal</button>
-                  )}
+                  <Button onClick={successPaymentHandler}>Оплатить</Button>
                 </ListGroup.Item>
               )}
             </ListGroup>
