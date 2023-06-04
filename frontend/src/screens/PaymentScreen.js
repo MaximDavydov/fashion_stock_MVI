@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 
 /* REACT BOOTSTRAP */
 import { Button, Form, Col } from "react-bootstrap";
@@ -20,7 +20,7 @@ function PaymentScreen({ history }) {
   const { shippingAddress } = cart;
 
   // STATE
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   /* IF NO SHIPPING ADDRESS THEN REDIRECT TO ShippingAddress SCREEN */
   if (!shippingAddress.address) {
@@ -40,27 +40,44 @@ function PaymentScreen({ history }) {
     history.push("/placeorder");
   };
 
+  useEffect(() => {
+    console.log(paymentMethod)
+  },[paymentMethod])
+
   return (
     <FormContainer>
       <CheckoutSteps step1 step2 step3 />
 
       <Form onSubmit={submitHandler}>
         <Form.Group>
-          <Form.Label as="legend">Select Method</Form.Label>
+          <Form.Label as="legend">Выберите метод оплаты</Form.Label>
           <Col>
             <Form.Check
               type="radio"
-              label="PayPal or Credit Card"
-              id="paypal"
+              label="Оплата картой (МИР)"
+              id="mir"
               name="paymentMethod"
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={() => setPaymentMethod('MIR')}
+            ></Form.Check>
+            <Form.Check
+                type="radio"
+                label="Оплата картой (VISA/MASTERCARD)"
+                id="visa"
+                name="paymentMethod"
+                onChange={() => setPaymentMethod('VISA')}
+            ></Form.Check>
+            <Form.Check
+                type="radio"
+                label="Рассрочка"
+                id="credit"
+                name="paymentMethod"
+                disabled
             ></Form.Check>
           </Col>
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="my-3">
-          Continue
+        <Button type="submit" variant="primary" className="my-3" disabled={!paymentMethod}>
+          Продолжить
         </Button>
       </Form>
     </FormContainer>

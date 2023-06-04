@@ -18,6 +18,8 @@ from base.products import products
 from base.models import *
 from base.serializers import ProductSerializer
 
+import datetime
+
 
 # Get all the products with query
 
@@ -173,8 +175,13 @@ def createProductReview(request, pk):
 @api_view(['PUT'])
 def add_price(request, pk):
     product = Product.objects.get(_id=pk)
+<<<<<<< HEAD
     product.price = float(product.price) * 1.1
+=======
+    product.price = float(product.price) + 1500
+>>>>>>> origin/master
     product.createdAt = datetime.datetime.now()
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
+

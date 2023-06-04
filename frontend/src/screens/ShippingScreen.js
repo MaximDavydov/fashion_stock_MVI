@@ -49,54 +49,55 @@ function ShippingScreen({ history }) {
     <FormContainer>
       <CheckoutSteps step1 step2 />
 
-      <h1>Shipping</h1>
+      <h1>Доставка</h1>
       <Form onSubmit={submitHandler}>
+
+          <Form.Group controlId="country">
+              <Form.Label>Страна</Form.Label>
+              <Form.Control
+                  required
+                  type="text"
+                  placeholder="Укажите страну доставки"
+                  value={country ? country : "Россия"}
+                  onChange={(e) => setCountry(e.target.value)}
+              />
+          </Form.Group>
+
+        <Form.Group controlId="city">
+          <Form.Label>Город</Form.Label>
+          <Form.Control
+              required
+              type="text"
+              placeholder="Город доставки"
+              value={city ? city : ""}
+              onChange={(e) => setCity(e.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group controlId="address">
-          <Form.Label>Address</Form.Label>
+          <Form.Label>Адрес доставки</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter Address"
+            placeholder="Адрес доставки"
             value={address ? address : ""}
             onChange={(e) => setAddress(e.target.value)}
           />
         </Form.Group>
 
-        <Form.Group controlId="city">
-          <Form.Label>City</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Enter City"
-            value={city ? city : ""}
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </Form.Group>
-
         <Form.Group controlId="postalCode">
-          <Form.Label>Postal Code</Form.Label>
+          <Form.Label>Почтовый индекс</Form.Label>
           <Form.Control
             required
             type="text"
-            placeholder="Enter Postal Code"
+            placeholder="Укажите Ваш почтовый индекс"
             value={postalCode ? postalCode : ""}
             onChange={(e) => setPostalCode(e.target.value)}
           />
         </Form.Group>
 
-        <Form.Group controlId="country">
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            placeholder="Enter Country"
-            value={country ? country : ""}
-            onChange={(e) => setCountry(e.target.value)}
-          />
-        </Form.Group>
-
         <Button className="my-3" type="submit" variant="primary">
-          Continue
+          Продолжить
         </Button>
       </Form>
     </FormContainer>

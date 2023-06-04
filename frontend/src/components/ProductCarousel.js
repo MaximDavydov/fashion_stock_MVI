@@ -32,21 +32,23 @@ function ProductCarousel() {
   ) : error ? (
     <Message variant="danger">{error}</Message>
   ) : (
-    <Carousel pause="hover" className="bg-dark">
-      {products.map((product) => (
-        <Carousel.Item key={product._id}>
-          <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
+      <div style={{ display: "flex", justifyContent: "center"}}>
+        <Carousel pause="hover" className="bg-dark" style={{ width: "600px", height: "400px", borderRadius: 30}}>
+          {products.map((product) => (
+              <Carousel.Item key={product._id}>
+                <Link to={`/product/${product._id}`}>
+                  <Image src={product.image} alt={product.name} fluid />
 
-            <Carousel.Caption className="carousel.caption">
-              <h4>
-                {product.name} (₹{product.price})
-              </h4>
-            </Carousel.Caption>
-          </Link>
-        </Carousel.Item>
-      ))}
-    </Carousel>
+                  <Carousel.Caption className="carousel.caption">
+                    <h4>
+                      {product.name} (₽{product.price})
+                    </h4>
+                  </Carousel.Caption>
+                </Link>
+              </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
   );
 }
 

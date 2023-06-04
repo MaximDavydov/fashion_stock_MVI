@@ -58,7 +58,7 @@ function RegisterScreen({ location, history }) {
 
   return (
     <FormContainer>
-      <h1>Register</h1>
+      <h1>Регистрация</h1>
 
       {message && <Message variant="danger">{message}</Message>}
       {error && <Message variant="danger">{error}</Message>}
@@ -66,59 +66,59 @@ function RegisterScreen({ location, history }) {
 
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Имя</Form.Label>
           <Form.Control
             required
             type="name"
-            placeholder="Enter Name"
+            placeholder="Укажите Имя"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="email">
-          <Form.Label>Email Address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             required
             type="email"
-            placeholder="Enter Email"
+            placeholder="Укажите email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>Пароль</Form.Label>
           <Form.Control
             required
             type="password"
-            placeholder="Enter Password"
+            placeholder="Придумайте пароль"
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
         </Form.Group>
 
         <Form.Group controlId="passwordConfirm">
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Подтверите пароль</Form.Label>
           <Form.Control
             required
             type="password"
-            placeholder="Confirm Password"
+            placeholder="Введите пароль еще раз"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Group>
 
         <Button type="submit" variant="primary" className="mt-3">
-          Register
+          Регистрация
         </Button>
       </Form>
 
       <Row className="py-3">
         <Col>
-          Have an Account ?{" "}
+          Уже есть аккаунт ?{" "}
           <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
-            Sign In
+            Авторизируйтесь
           </Link>
         </Col>
       </Row>
