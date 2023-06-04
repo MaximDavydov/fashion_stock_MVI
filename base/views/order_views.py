@@ -14,7 +14,7 @@ from rest_framework.serializers import Serializer
 # Local Import
 from base.products import products
 from base.models import *
-from base.serializers import ProductSerializer, OrderSerializer
+from base.serializers import ProductSerializer, OrderSerializer, OrderListSerializer
 
 
 # views start from here
@@ -126,3 +126,10 @@ def updateOrderToDelivered(request, pk):
     order.deliveredAt = datetime.now()
     order.save()
     return Response('Order was Delivered')
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def get_orders_list(request):
+    orders = OrderItem.objects.all()
+    serializer = OrderListSerializer(orders, many=True)
+    return Response(serializer.data)

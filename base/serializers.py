@@ -96,3 +96,15 @@ class OrderSerializer(serializers.ModelSerializer):
         items = obj.user
         serializer = UserSerializer(items, many=False)
         return serializer.data
+
+
+class OrderListSerializer(serializers.ModelSerializer):
+    inegrationGuid = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = OrderItem
+        fields = ('name', 'qty', 'image', '_id', 'order_id', 'price', 'inegrationGuid')
+
+    def get_inegrationGuid(self, obj):
+        inegrationGuid = Product.objects.get(_id=obj.product._id).inegrationGuid
+        return inegrationGuid

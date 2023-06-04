@@ -9,10 +9,12 @@ urlpatterns = [
 
     path('<str:pk>/reviews/', views.createProductReview, name="create-review"),
     path('top/', views.getTopProducts, name="top-products"),
-    path('<str:pk>/', views.getProduct, name="product"),
+    path('<int:pk>/', views.getProduct, name="product"),
+    path('get_list/', views.get_products, name="get_products"),
 
     path('update/<str:pk>/', views.updateProduct, name="update_product"),
     path('delete/<str:pk>/', views.deleteProduct, name="delete_product"),
     path('addprice/<str:pk>/', views.add_price, name="addprice_product"),
+
 
 ]

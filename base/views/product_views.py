@@ -175,13 +175,20 @@ def createProductReview(request, pk):
 @api_view(['PUT'])
 def add_price(request, pk):
     product = Product.objects.get(_id=pk)
-<<<<<<< HEAD
-    product.price = float(product.price) * 1.1
-=======
     product.price = float(product.price) + 1500
->>>>>>> origin/master
     product.createdAt = datetime.datetime.now()
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+def get_products(request):
+    query = request.query_params.get('keyword')
+    if query == None:
+        query = ''
+
+    products = Product.objects.filter(name__icontains=query).order_by('-_id')
+
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
