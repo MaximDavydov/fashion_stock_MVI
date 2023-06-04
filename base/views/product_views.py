@@ -1,4 +1,6 @@
 # Django Import
+import datetime
+
 from django.core import paginator
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -172,6 +174,7 @@ def createProductReview(request, pk):
 def add_price(request, pk):
     product = Product.objects.get(_id=pk)
     product.price = float(product.price) * 1.1
+    product.createdAt = datetime.datetime.now()
     product.save()
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
