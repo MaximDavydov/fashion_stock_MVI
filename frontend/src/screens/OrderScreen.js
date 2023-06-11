@@ -236,7 +236,7 @@ function OrderScreen({ history, match }) {
                         </Col>
 
                         <Col>
-                          <Link to={`/product${item.product}`}>
+                          <Link to={`/product/${item.product}`}>
                             {item.name}
                           </Link>
                         </Col>
