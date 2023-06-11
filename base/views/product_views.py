@@ -172,10 +172,21 @@ def createProductReview(request, pk):
         return Response('Review Added')
 
 
+# @api_view(['PUT'])
+# def add_price(request, pk):
+#     product = Product.objects.get(_id=pk)
+#     product.price = float(product.price) + 1500
+#     product.createdAt = datetime.datetime.now()
+#     product.save()
+#     serializer = ProductSerializer(product, many=False)
+#     return Response(serializer.data)
+
 @api_view(['PUT'])
 def add_price(request, pk):
+    bid_amount = request.query_params.get('bidAmount')  # Get the bidAmount parameter from the request
+
     product = Product.objects.get(_id=pk)
-    product.price = float(product.price) + 1500
+    product.price = float(product.price) + float(bid_amount)  # Use the bidAmount in the price calculation
     product.createdAt = datetime.datetime.now()
     product.save()
     serializer = ProductSerializer(product, many=False)
@@ -192,3 +203,5 @@ def get_products(request):
 
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
+
+
