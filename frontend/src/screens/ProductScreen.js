@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 /* ACTION CREATORS */
 import {
   listProductDetails,
-  createProductReview,
+  createProductReview, getProductDetails,
 } from "../actions/productActions";
 
 /* ACTION TYPES */
@@ -35,16 +35,72 @@ import axios from "axios";
 
 
 function ProductScreen({ match, history }) {
-  /* STATE */
+
+  const [bidAmount, setBidAmount] = useState(1500);
+
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [isAuction, setAuction] = useState(false);
+  const [disableAddToCart, setDisableAddToCart] = useState(false);
+  const [countdown, setCountdown] = useState(20);
+  const [disableCountdown, setDisableCountdown] = useState(false);
 
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
+
+  const increasePrice = async (bidAmount) => {
+    try {
+      const product_id = match.params.id;
+
+      await axios.put(`http://127.0.0.1:8000/api/products/addprice/${product_id}/?bidAmount=${bidAmount}`);
+
+      const productCreationTime = new Date(product.createdAt);
+
+      const twoMinutesAgo = Date.now() - 0.2 * 60 * 1000;
+
+      if (productCreationTime.getTime() > twoMinutesAgo) {
+        setAuction(true);
+      }
+
+      setDisableAddToCart(true);
+      setDisableCountdown(true);
+      setCountdown(20);
+
+      // Dispatch the getProductDetails action to update the product details
+      dispatch(getProductDetails(product_id));
+
+      // Start the countdown
+      startCountdown();
+    } catch (error) {
+      console.error("Ошибка при повышении стоимости продукта:", error);
+    }
+  };
+
+  const startCountdown = () => {
+    const interval = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      setDisableAddToCart(false);
+      setDisableCountdown(false);
+      addToCartHandler(); // Call addToCartHandler after the timer ends
+    }, 20000);
+  };
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+
+  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  useEffect(() => {
+    dispatch(getProductDetails(match.params.id));
+  }, [dispatch, match]);
+
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -69,10 +125,6 @@ function ProductScreen({ match, history }) {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successProductReview]);
 
-  const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
-  };
-
   /* HANDLERS */
   const submitHandler = (e) => {
     e.preventDefault();
@@ -80,21 +132,6 @@ function ProductScreen({ match, history }) {
     dispatch(createProductReview(match.params.id, { rating, comment }));
   };
 
-
-  // Функция отправки запроса по увеличению стоимости
-  const increasePrice = async () => {
-    try {
-      const product_id = match.params.id;
-
-      // Отправка запроса на повышение стоимости продукта
-      await axios.put(`http://127.0.0.1:8000/api/products/addprice/${product_id}/`);
-
-      // Обновление страницы, тк лень заморачиваться с useEffect
-      window.location.reload();
-    } catch (error) {
-      console.error('Ошибка при повышении стоимости продукта:', error);
-    }
-  };
 
 
   return (
@@ -180,27 +217,50 @@ function ProductScreen({ match, history }) {
                     </ListGroup.Item>
                   )}
 
+
                   <ListGroup.Item>
-                    <Button
-                        className="w-100"
-                        disabled={product.countInStock <= 0 }
-                        type="button"
-                        onClick={addToCartHandler}
-                    >
-                      Добавить в корзину
-                    </Button>
+                    <Row>
+                      <Col>Ставка:</Col>
+                      <Col>
+                        <input
+                            type="number"
+                            min="0"
+                            value={bidAmount}
+                            onChange={(e) => setBidAmount(e.target.value)}
+                            disabled={product.countInStock <= 0 || isAuction || disableAddToCart}
+                            placeholder="Введите сумму ставки"
+                        />
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Button
                         className="w-100"
-                        disabled={product.countInStock <= 0 }
+                        disabled={product.countInStock <= 0 || isAuction || disableAddToCart || bidAmount < 1000}
                         type="button"
-                        onClick={increasePrice}
+                        onClick={() => increasePrice(bidAmount)}
                     >
-                      Поднять ставку (1500₽)
+                      Поднять ставку ({bidAmount || 0}₽)
                     </Button>
                   </ListGroup.Item>
+
+                  {disableCountdown && (
+                      <ListGroup.Item>
+                        <p>Ожидание ставок: {countdown} секунд</p>
+                      </ListGroup.Item>
+                  )}
+
+                  <ListGroup.Item>
+                    <h4>Аукцион</h4>
+                    <p>
+                      Этот товар доступен на аукционе. Вы можете увеличить ставку на товар, указав сумму в поле "Ставка".
+                      Ставка должна быть не менее 1000₽ и не ниже текущей ставки.
+                      После каждого увеличения ставки начинается обратный отсчет времени в течение 20 секунд.
+                      Если ни одна ставка не будет сделана в течение указанного времени, товар добавится в корзину автоматически.
+                    </p>
+                  </ListGroup.Item>
+
                 </ListGroup>
               </Card>
             </Col>

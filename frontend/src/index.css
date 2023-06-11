@@ -83,3 +83,11 @@ h2 {
   max-width: 100%;
   max-height: 1.2em;
 }
+
+
+.card-image {
+  height: 300px; /* Задайте высоту, которая соответствует вашим потребностям */
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1rem;
+}

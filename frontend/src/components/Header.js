@@ -56,6 +56,12 @@ function Header() {
                 </Nav.Link>
               </LinkContainer>
 
+              <LinkContainer to="/blog">
+                <Nav.Link>
+                  <i className="fas"></i> Блог
+                </Nav.Link>
+              </LinkContainer>
+
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
                   <LinkContainer to="/profile">

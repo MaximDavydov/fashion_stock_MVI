@@ -22,6 +22,7 @@ import OrderListScreen from "./screens/OrderListScreen";
 
 /* REACT ROUTER */
 import { HashRouter as Router, Route } from "react-router-dom";
+import BlogScreen from "./screens/BloogScreen";
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route path="/payment" component={PaymentScreen} />
 
           <Route path="/placeorder" component={PlaceOrderScreen} />
+
+          <Route path="/blog" component={BlogScreen} />
 
           <Route path="/order/:id" component={OrderScreen} />
 
