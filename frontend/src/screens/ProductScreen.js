@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 /* ACTION CREATORS */
 import {
   listProductDetails,
-  createProductReview, getProductDetails,
+  createProductReview, getProductDetails, increaseBidAmount,
 } from "../actions/productActions";
 
 /* ACTION TYPES */
@@ -55,7 +55,7 @@ function ProductScreen({ match, history }) {
     try {
       const product_id = match.params.id;
 
-      await axios.put(`http://127.0.0.1:8000/api/products/addprice/${product_id}/?bidAmount=${bidAmount}`);
+      dispatch(increaseBidAmount(product_id, bidAmount));
 
       const productCreationTime = new Date(product.createdAt);
 
