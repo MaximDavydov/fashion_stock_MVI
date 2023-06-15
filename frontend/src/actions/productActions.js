@@ -291,3 +291,15 @@ export const getProductDetails = (id) => async (dispatch) => {
     });
   }
 };
+
+export const increaseBidAmount = (productId, bidAmount) => async (dispatch) => {
+  try {
+    // Make the API request to increase the bid amount
+    await axios.put(`/api/products/addprice/${productId}/?bidAmount=${bidAmount}`);
+
+    // Dispatch an action to update the product details
+    dispatch(getProductDetails(productId));
+  } catch (error) {
+    console.error("Error increasing bid amount:", error);
+  }
+};
